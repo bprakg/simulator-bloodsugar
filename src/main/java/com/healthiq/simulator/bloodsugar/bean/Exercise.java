@@ -13,7 +13,7 @@ import lombok.Data;
 @Entity
 public class Exercise {
 
-	private @Id @GeneratedValue Long id;
+	private @Id @GeneratedValue long id;
 	private String name;
 	private String exerciseIndex;
 
