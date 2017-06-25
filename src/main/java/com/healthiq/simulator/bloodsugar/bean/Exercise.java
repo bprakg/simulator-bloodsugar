@@ -15,7 +15,7 @@ public class Exercise {
 
 	private @Id @GeneratedValue long id;
 	private String name;
-	private String exerciseIndex;
+	private int exerciseIndex;
 	/**
 	 * 
 	 */
@@ -26,7 +26,7 @@ public class Exercise {
 	 * @param name
 	 * @param exerciseIndex
 	 */
-	public Exercise(String name, String exerciseIndex) {
+	public Exercise(String name, int exerciseIndex) {
 		this.name = name;
 		this.exerciseIndex = exerciseIndex;
 	}
@@ -57,15 +57,15 @@ public class Exercise {
 	/**
 	 * @return the exerciseIndex
 	 */
-	public String getExerciseIndex() {
+	public int getExerciseIndex() {
 		return exerciseIndex;
 	}
 	/**
 	 * @param exerciseIndex the exerciseIndex to set
 	 */
-	public void setExerciseIndex(String exerciseIndex) {
+	public void setExerciseIndex(int exerciseIndex) {
 		this.exerciseIndex = exerciseIndex;
 	}
-
+	
 	
 }

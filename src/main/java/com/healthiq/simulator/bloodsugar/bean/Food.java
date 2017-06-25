@@ -12,7 +12,7 @@ public class Food {
 
 	private @Id @GeneratedValue long id;
 	private String name;
-	private String glycemicIndex;
+	private int glycemicIndex;
 	/**
 	 * 
 	 */
@@ -20,12 +20,10 @@ public class Food {
 		// TODO Auto-generated constructor stub
 	}
 	/**
-	 * @param id
 	 * @param name
 	 * @param glycemicIndex
 	 */
-	public Food(long id, String name, String glycemicIndex) {
-		this.id = id;
+	public Food(String name, int glycemicIndex) {
 		this.name = name;
 		this.glycemicIndex = glycemicIndex;
 	}
@@ -56,13 +54,13 @@ public class Food {
 	/**
 	 * @return the glycemicIndex
 	 */
-	public String getGlycemicIndex() {
+	public int getGlycemicIndex() {
 		return glycemicIndex;
 	}
 	/**
 	 * @param glycemicIndex the glycemicIndex to set
 	 */
-	public void setGlycemicIndex(String glycemicIndex) {
+	public void setGlycemicIndex(int glycemicIndex) {
 		this.glycemicIndex = glycemicIndex;
 	}
 	
