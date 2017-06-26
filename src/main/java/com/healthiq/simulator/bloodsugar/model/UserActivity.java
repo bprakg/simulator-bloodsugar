@@ -7,8 +7,39 @@ import java.util.List;
 public class UserActivity {
 
 	private LocalDateTime dayStart;
-
+	private int hour;
+	private int minute;
 	private List<Activity> list = new ArrayList<>();
+
+	/**
+	 * @return the hour
+	 */
+	public int getHour() {
+		return hour;
+	}
+
+	/**
+	 * @param hour
+	 *            the hour to set
+	 */
+	public void setHour(int hour) {
+		this.hour = hour;
+	}
+
+	/**
+	 * @return the minute
+	 */
+	public int getMinute() {
+		return minute;
+	}
+
+	/**
+	 * @param minute
+	 *            the minute to set
+	 */
+	public void setMinute(int minute) {
+		this.minute = minute;
+	}
 
 	/**
 	 * @param dayStart
