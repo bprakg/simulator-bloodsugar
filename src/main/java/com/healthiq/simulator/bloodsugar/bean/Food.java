@@ -11,58 +11,68 @@ import lombok.Data;
 public class Food {
 
 	private @Id @GeneratedValue long id;
-	private String name;
+	private String fiName;
 	private int glycemicIndex;
+
 	/**
 	 * 
 	 */
 	public Food() {
 		// TODO Auto-generated constructor stub
 	}
+
 	/**
 	 * @param name
 	 * @param glycemicIndex
 	 */
-	public Food(String name, int glycemicIndex) {
-		this.name = name;
+	public Food(String fiName, int glycemicIndex) {
+		this.fiName = fiName;
 		this.glycemicIndex = glycemicIndex;
 	}
+
 	/**
 	 * @return the id
 	 */
 	public long getId() {
 		return id;
 	}
+
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	/**
-	 * @return the name
+	 * @return the fiName
 	 */
-	public String getName() {
-		return name;
+	public String getFiName() {
+		return fiName;
 	}
+
 	/**
-	 * @param name the name to set
+	 * @param fiName
+	 *            the fiName to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setFiName(String fiName) {
+		this.fiName = fiName;
 	}
+
 	/**
 	 * @return the glycemicIndex
 	 */
 	public int getGlycemicIndex() {
 		return glycemicIndex;
 	}
+
 	/**
-	 * @param glycemicIndex the glycemicIndex to set
+	 * @param glycemicIndex
+	 *            the glycemicIndex to set
 	 */
 	public void setGlycemicIndex(int glycemicIndex) {
 		this.glycemicIndex = glycemicIndex;
 	}
-	
-	
+
 }
