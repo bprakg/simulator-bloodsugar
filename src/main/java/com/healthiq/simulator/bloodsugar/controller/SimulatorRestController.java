@@ -2,6 +2,7 @@ package com.healthiq.simulator.bloodsugar.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -16,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.healthiq.simulator.bloodsugar.model.Activity;
 import com.healthiq.simulator.bloodsugar.model.GIOrEiIndex;
 import com.healthiq.simulator.bloodsugar.model.SimulatedBloodSugarAndGlycation;
-import com.healthiq.simulator.bloodsugar.model.UserActivity;
 import com.healthiq.simulator.bloodsugar.repository.ExerciseRepository;
 import com.healthiq.simulator.bloodsugar.repository.FoodRepository;
 
 @RestController
+@RequestMapping("/simulator")
 public class SimulatorRestController {
 
 	@Autowired
@@ -52,29 +53,56 @@ public class SimulatorRestController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public Map<LocalDateTime, SimulatedBloodSugarAndGlycation> getSimulatedBloodSugarAndGlycation(
-			@RequestBody UserActivity ua) {
+			@RequestBody Collection<Activity> list) {
+		System.out.println("getSimulatedBloodSugarAndGlycation");
+		LocalDateTime ds = LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(),
+				LocalDateTime.now().getDayOfMonth(), 7, 0);
 		TreeMap<LocalDateTime, SimulatedBloodSugarAndGlycation> map = new TreeMap<>();
-		ua.setDayStart(LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(),
-				LocalDateTime.now().getDayOfMonth(), ua.getHour(), ua.getMinute()));
-		ua.getList().stream().forEach(e -> getglycationBasedOnUserActivity(map, ua.getDayStart(), e));
+		list.stream().forEach(e -> {
+			bloodSugarBeforeAnyAlteringEvent(map, ds, e);
+
+			BloodSugarBetweenEvents(map, e);
+
+			bloodSugarAfterAnAlteringEvent(map, e);
+		});
 		return map;
 	}
 
-	private void getglycationBasedOnUserActivity(TreeMap<LocalDateTime, SimulatedBloodSugarAndGlycation> map,
+	private void bloodSugarBeforeAnyAlteringEvent(TreeMap<LocalDateTime, SimulatedBloodSugarAndGlycation> map,
 			LocalDateTime dayStart, Activity e) {
-		LocalDateTime now = LocalDateTime.now();
-		e.setEventTime(
-				LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(), e.getHour(), e.getMinute()));
 		if (map.isEmpty()) {
-			while (dayStart != e.getEventTime()) {
+			LocalDateTime now = LocalDateTime.now();
+			e.setEventTime(
+					LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(), e.getHour(), e.getMinute()));
+
+			while (dayStart.isBefore(e.getEventTime())) {
 				SimulatedBloodSugarAndGlycation s = new SimulatedBloodSugarAndGlycation(dayStart, 80, 0);
 				map.put(dayStart, s);
 				dayStart.plusMinutes(1);
 			}
 		}
+	}
 
-		BloodSugarBetweenEvents(map, e);
+	private void BloodSugarBetweenEvents(TreeMap<LocalDateTime, SimulatedBloodSugarAndGlycation> map, Activity e) {
+		LocalDateTime ldt = map.get(map.lastKey()).getSimulationTime();
+		int sugarlevel = map.get(map.lastKey()).getBloodSugar();
+		int glycation = map.get(map.lastKey()).getGlycation();
 
+		while (ldt.isBefore(e.getEventTime())) {
+			if (sugarlevel > 80)
+				sugarlevel--;
+			else if (sugarlevel < 80)
+				sugarlevel++;
+			if (sugarlevel > 150)
+				glycation++;
+			ldt.plusMinutes(1);
+			SimulatedBloodSugarAndGlycation s = new SimulatedBloodSugarAndGlycation(ldt, sugarlevel, glycation);
+			map.put(ldt, s);
+		}
+	}
+
+	private void bloodSugarAfterAnAlteringEvent(TreeMap<LocalDateTime, SimulatedBloodSugarAndGlycation> map,
+			Activity e) {
 		int rateChangeDuration = (e.getAlteringEvent().equalsIgnoreCase("FOOD")) ? 2 : 1;
 		int rateChangeFactor = (e.getAlteringEvent().equalsIgnoreCase("FOOD")) ? 1 : -1;
 		LocalDateTime targetLDT = e.getEventTime().plusHours(rateChangeDuration);
@@ -95,24 +123,6 @@ public class SimulatorRestController {
 			s.setGlycation((s.getBloodSugar() > 150) ? currentGlycation + 1 : currentGlycation);
 			map.put(e.getEventTime(), s);
 			e.getEventTime().plusMinutes(1);
-		}
-	}
-
-	private void BloodSugarBetweenEvents(TreeMap<LocalDateTime, SimulatedBloodSugarAndGlycation> map, Activity e) {
-		LocalDateTime ldt = map.get(map.lastKey()).getSimulationTime();
-		int sugarlevel = map.get(map.lastKey()).getBloodSugar();
-		int glycation = map.get(map.lastKey()).getGlycation();
-
-		while (ldt.isBefore(e.getEventTime())) {
-			if (sugarlevel > 80)
-				sugarlevel--;
-			else if (sugarlevel < 80)
-				sugarlevel++;
-			if (sugarlevel > 150)
-				glycation++;
-			ldt.plusMinutes(1);
-			SimulatedBloodSugarAndGlycation s = new SimulatedBloodSugarAndGlycation(ldt, sugarlevel, glycation);
-			map.put(ldt, s);
 		}
 	}
 }

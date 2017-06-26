@@ -12,12 +12,21 @@ public class Activity {
 	/**
 	 * @param alteringEvent
 	 * @param indexValue
-	 * @param eventTime
+	 * @param hour
+	 * @param minute
 	 */
-	public Activity(String alteringEvent, int indexValue, LocalDateTime eventTime) {
+	public Activity(String alteringEvent, int indexValue, int hour, int minute) {
 		this.alteringEvent = alteringEvent;
 		this.indexValue = indexValue;
-		this.eventTime = eventTime;
+		this.hour = hour;
+		this.minute = minute;
+	}
+
+	/**
+	 * 
+	 */
+	public Activity() {
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
