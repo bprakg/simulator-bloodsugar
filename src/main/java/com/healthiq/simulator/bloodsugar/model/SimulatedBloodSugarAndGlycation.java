@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class SimulatedBloodSugarAndGlycation {
 
 	private LocalDateTime simulationTime;
-	private int bloodSugar;
+	private float bloodSugar;
 	private int glycation;
 
 	/**
@@ -13,10 +13,14 @@ public class SimulatedBloodSugarAndGlycation {
 	 * @param bloodSugar
 	 * @param glycation
 	 */
-	public SimulatedBloodSugarAndGlycation(LocalDateTime ldt, int bloodSugar, int glycation) {
+	public SimulatedBloodSugarAndGlycation(LocalDateTime ldt, float bloodSugar, int glycation) {
 		this.simulationTime = ldt;
 		this.bloodSugar = bloodSugar;
 		this.glycation = glycation;
+	}
+
+	public SimulatedBloodSugarAndGlycation() {
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -37,7 +41,7 @@ public class SimulatedBloodSugarAndGlycation {
 	/**
 	 * @return the bloodSugar
 	 */
-	public int getBloodSugar() {
+	public float getBloodSugar() {
 		return bloodSugar;
 	}
 
@@ -45,7 +49,7 @@ public class SimulatedBloodSugarAndGlycation {
 	 * @param bloodSugar
 	 *            the bloodSugar to set
 	 */
-	public void setBloodSugar(int bloodSugar) {
+	public void setBloodSugar(float bloodSugar) {
 		this.bloodSugar = bloodSugar;
 	}
 
