@@ -9,7 +9,7 @@ class BloodSugarAlteringEvent extends Component {
 
   constructor(props) {
     super(props);
-    this.onTextEntry = this.onTextEntry.bind(this);
+    this.parentOnTextEntry = this.parentOnTextEntry.bind(this);
     this.state = {
       alteringEventList: props.store.alteringEventList
     };
@@ -18,13 +18,13 @@ class BloodSugarAlteringEvent extends Component {
   }
 
   addRow(props) {
-    this.props.dispatch(action.addAlteringEvent(this.props.store.alteringEventList));
     this.setState ({
       alteringEventList: this.props.store.alteringEventList
     })
+    this.props.updateAppState();
   }
 
-  onTextEntry(event) {
+  parentOnTextEntry(event) {
     console.log(event);
     this.props.dispatch(action.onTextEntry(event));
   }
@@ -34,8 +34,8 @@ class BloodSugarAlteringEvent extends Component {
       <div className="div40pc">
         <p> <b> Assuming day break at 7 AM </b></p>
         <RowComponent alteringEventList={this.state.alteringEventList} 
-          store = {this.props.store}
-          parentMethod = {this.onTextEntry}/>
+          masterEIOrGIList = {[]}
+          parentOnTextEntry = {this.onTextEntry}/>
         <br/><br />
         <button onClick={this.addRow}>Add Row</button>
       </div>

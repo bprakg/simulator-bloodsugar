@@ -6,10 +6,9 @@ export function getMasterEIOrGIList (masterEIOrGIList) {
     }
 }
 
-export function addAlteringEvent (alteringEventName) {
+export function addAlteringEvent () {
     return {
-        type: "ADD_ALTERING_EVENT",
-        payload: alteringEventName
+        type: "ADD_ALTERING_EVENT"
     }
 }
 
