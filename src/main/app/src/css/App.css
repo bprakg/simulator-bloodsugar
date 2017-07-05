@@ -1,0 +1,65 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: lightgrey;
+  height: 2vh;
+  padding: 3vh;
+  color: brown;
+}
+
+.App-footer {
+  background-color: lightgrey;
+  height: 2vh;
+  padding: 3vh;
+  color: brown;
+}
+.main {
+  width: 100%; height: 84vh;
+  display: inline-block;
+  background-image: url("../images/healthiq-bloodsugar-simulator-backgroud.jpg");
+  background-blend-mode: screen;
+  background-color:lightslategray;
+  vertical-align:top;
+}
+
+.div40pc {
+  width: 40%;
+  height:100%;
+  border-style:solid;
+  display: inline-block;
+  vertical-align:top;
+}
+
+.div58pc {
+  width: 58%;
+  height:100%;
+  border-style:solid;
+  display: inline-block;
+  vertical-align:top;
+}
+
+.App-intro {
+  font-size: large;
+}
+.width2 {
+  width: 5%;
+}
+
+.width80 {
+  size: 80;
+}
+
+.CTextBox {
+  border: none;
+}
+
+.LeftAlign {
+  align-content: left;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
