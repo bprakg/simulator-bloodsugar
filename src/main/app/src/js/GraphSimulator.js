@@ -2,58 +2,57 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import '../css/App.css';
 import { Line } from 'react-chartjs-2';
+import { moment } from 'moment';
 
 export default class GraphSimulator extends Component {
 
-    getGraphDataset(label, isFill, lineBackgroundColor, lineData) {
+    getGraphDataset(label, isFill, lineBackgroundColor, showLine, lineData) {
         return ({
             label: label,
             fill: isFill,
             lineTension: 0.1,
-            backgroundColor: 'rgba(75,192,192,0.4)',
+            backgroundColor: lineBackgroundColor,
             borderColor: lineBackgroundColor,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: 'rgba(75,192,192,1)',
-            pointBackgroundColor: '#fff',
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-            pointHoverBorderColor: 'rgba(220,220,220,1)',
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
+            pointBorderColor: lineBackgroundColor,
+            pointBackgroundColor: lineBackgroundColor,
+            pointBorderWidth: 0.5,
+            pointHoverRadius: 1,
+            pointHoverBackgroundColor: lineBackgroundColor,
+            pointHoverBorderColor: lineBackgroundColor,
+            pointHoverBorderWidth: 0.5,
+            pointRadius: 0.05,
             pointHitRadius: 10,
+            showLine: showLine,
             data: lineData
         });
     }
 
     options = () => {
-        return({
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
+        return ({
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        display: false
+                    }
+                }],
+                yAxes: [{
+                    gridLines: {
+                        display: false
+                    }
+                }]
             }
         });
     }
     data = (dataset) => {
         return ({
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: dataset.labelList,
             datasets: [
                 this.getGraphDataset('Blood Sugar', false,
-                    'rgba(75,0,192,180)',
-                    //[80, 90, 109, 80, 81, 126, 80, 90]
-                    dataset
-                    ),
-                
-                this.getGraphDataset('Glycation', true,
-                    'rgba(190,0,0,120)', 
-                    [0, 1, 2, 3, 4, 5, 6, 7, 8]),
+                    'rgba(75,0,192,180)', false,
+                    dataset.bloodsugarList),
+                this.getGraphDataset('Glycation', false,
+                    'rgba(190,0,0,120)', false,
+                    dataset.glycationList),
             ]
         });
     };
@@ -62,7 +61,7 @@ export default class GraphSimulator extends Component {
         return (
             <div className="div58pc">
                 <p> <b>Simulated Bloodsugar and Glycation graph </b></p>
-                <Line data={this.data(this.props.simulatedBloodSugarList)} options={this.options}/>
+                <Line data={this.data(this.props.simulatedBloodSugarOverTime)} options={this.options} />
             </div>
         );
     }

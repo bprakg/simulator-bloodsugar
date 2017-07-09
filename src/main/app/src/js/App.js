@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../css/App.css';
-import BloodSugarAlteringEvent from './BloodSugarAlteringEvent';
-import GraphSimulator from './GraphSimulator';
+import Event from './BloodSugarAlteringEvent';
+import Graph from './GraphSimulator';
 import { connect } from "react-redux";
 import * as action from "./UserActions";
 
@@ -23,10 +23,8 @@ class App extends Component {
           <b>Health I. Q. - BloodSugar and Glycation Simulator</b>
         </div>
         <div className="main">
-          <BloodSugarAlteringEvent updateAppState = {this.updateAppState}/>
-          <GraphSimulator simulatedBloodSugarList = 
-          {this.props.store.simulatedBloodSugarOverTime.simulatedBloodSugarList}
-            simulatedGlycationList = {this.props.store.simulatedBloodSugarOverTime.simulatedGlycationList}/>
+          <Event updateAppState = {this.updateAppState}/>
+          <Graph simulatedBloodSugarOverTime = {this.props.store.simulatedBloodSugarOverTime}/>
         </div>
         <div className="App-footer">
         </div>

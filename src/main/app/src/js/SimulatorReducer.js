@@ -14,18 +14,22 @@ const defaultAlteringEvent = (idx) => {
 const initialState = {
     masterEIOrGIList: [],
     alteringEventList: [(defaultAlteringEvent(0))],
-    simulatedBloodSugarOverTime: {}
+    simulatedBloodSugarOverTime: {
+        labelList : [],
+        bloodsugarList : [],
+        glycationList : []
+    }
 }
 
 export default function reducer(state = initialState, action) {
     console.log(state);
     switch (action.type) {
         case "GET_MASTER_EI_OR_GI_LIST":
-            console.log("GET_MASTER_EI_OR_GI_LIST - " + action.payload);
+            console.log("GET_MASTER_EI_OR_GI_LIST - " + JSON.stringify(action.payload));
             state = { ...state, masterEIOrGIList: action.payload };
             break;
         case "ADD_ALTERING_EVENT":
-            console.log("ADD_ALTERING_EVENT - ");
+            console.log("ADD_ALTERING_EVENT ");
             let list = state.alteringEventList;
             list.push(defaultAlteringEvent(list.length+1));
             state = {
@@ -35,7 +39,7 @@ export default function reducer(state = initialState, action) {
             };
             break;
         case "ON_TEXT_ENTRY":
-            console.log("ON_TEXT_ENTRY - " + action.payload);
+            console.log("ON_TEXT_ENTRY - " + JSON.stringify(action.payload));
            /* axios.get('http://localhost:8080/simulator/'+action.payload)
                 .then(function (response) {
                     console.log(response);
@@ -55,6 +59,7 @@ export default function reducer(state = initialState, action) {
         default:
             console.log("default");
     }
+    console.log(state);
     return state;
 }
 
@@ -63,12 +68,18 @@ function getSimulatedBloodSugarOverTime(list) {
     console.log("getSimulatedBloodSugarOverTime");
     let simulatedBloodSugarList = [];
     let simulatedGlycationList = [];
+    let labelList = [];
     TestData.getSimulatedBloodSugarOverTime().map((item) => {
+        // let itemDate = new Date(item.simulationTime.year, item.simulationTime.monthValue, 
+        // item.simulationTime.dayOfMonth, item.simulationTime.hour, item.simulationTime.minute);
+        let itemDate = item.simulationTime.hour+":"+item.simulationTime.minute;
+        labelList.push(itemDate);
         simulatedBloodSugarList.push(item.bloodSugar);
         simulatedGlycationList.push(item.glycation);
     });
     return ({
-        simulatedBloodSugarList : simulatedBloodSugarList,
-        simulatedGlycationList : simulatedGlycationList
+        labelList: labelList,
+        bloodsugarList : simulatedBloodSugarList,
+        glycationList : simulatedGlycationList
     });
 }
