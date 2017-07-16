@@ -27,6 +27,7 @@
 .div40pc {
   width: 40%;
   height:100%;
+<<<<<<< HEAD
   border-style:solid;
   display: inline-block;
   vertical-align:top;
@@ -58,6 +59,72 @@
 .LeftAlign {
   align-content: left;
 }
+=======
+  /*border-style:solid;*/
+  display: inline-block;
+  vertical-align:top;
+}
+
+.div58pc {
+  width: 58%;
+  height:100%;
+  /*border-style:solid;*/
+  display: inline-block;
+  vertical-align:top;
+}
+
+.App-intro {
+  font-size: large;
+}
+.width2 {
+  width: 5%;
+}
+
+.width100 {
+  width: 100%;
+}
+.width80 {
+  size: 80;
+}
+.width60 {
+  width: 45vh;
+  /*border-style:solid;*/
+  display: inline-block;
+  vertical-align:top;
+  overflow : hidden;
+  margin-right: 1vh;
+  margin-left: 1vh;
+  text-align: left;
+}
+.width10{
+  width: 7vh;
+  /*border-style:solid;*/
+  display: inline-block;
+  vertical-align:top;
+  overflow : hidden;
+  margin-right: 1vh;
+  margin-left: 1vh;
+  text-align: left;
+}
+
+.CTextBox {
+  border: none;
+  align-content: left;
+}
+
+.LeftAlign {
+  align-content: left;
+}
+
+.CancelBackGround {
+  border-radius: 10%;
+  background-color:red;
+
+}
+.circle {
+    border-radius: 50%;
+  }
+>>>>>>> stash
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
